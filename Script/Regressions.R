@@ -1,7 +1,7 @@
 # Regression runs corresponding to "Vehicle flood damage and disaster assistance in the United States" 
 # Citation:  Koller, S. F. (2025). Vehicle flood damage and household disaster assistance in the United States. Risk Management & Insurance Review, 1–40. https://doi.org/10.1111/rmir.70002
 
-# Note: file to be used for replication titled "VFD_all.csv" and is available at 
+# Note: file to be used for replication titled "VFD_all.csv"
 
 library(pacman)
 p_load(pryr, AER, data.table, tidyverse, ggplot2, grattantheme, scales, tigris, 
@@ -10,18 +10,21 @@ p_load(pryr, AER, data.table, tidyverse, ggplot2, grattantheme, scales, tigris,
 #read in files
 VFD_all = fread("VFD_all.csv", fill=TRUE)
 
+# create "applied year" variable
 VFD_all$appliedyear = substr_right(VFD_all$`Applied Date`, 2)
-
 VFD_all$appliedyear = paste0("20", VFD_all$appliedyear)
 
+# create numeric "approved_transportation_amount" variable
 VFD_all$approved_transportation_amount = as.numeric(VFD_all$`Approved Transportation Amount`)
 
+# create numeric "Water Level_num" variable
 VFD_all$`Water Level_num` = as.numeric(VFD_all$`Water Level`)
 
+# create subset dataframe only pertaining to Transportation Assistance applications that received an award. 
 ReceivedTA_all = subset(VFD_all, `Approved Transportation Amount`>0)
 
 
-# create binary for TA award >0 (1) and =0 (0).
+# create binary outcome variable for TA award >0 (1) and =0 (0).
 VFD_all = VFD_all %>% 
   mutate(ReceivedTA_binary = case_when(`Approved Transportation Amount`>0 ~ 1,
                                        `Approved Transportation Amount`==0 ~ 0))
