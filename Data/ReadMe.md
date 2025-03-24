@@ -1,0 +1,1 @@
+VFD_all.csv is the processed file for replication. Original raw files provided by FEMA as well as other data referenced in the manuscript are available at [this Harvard Dataverse link](https://dataverse.harvard.edu/dataverse/Vehicle_flood_damage_and_disaster_assistance/) (https://doi.org/10.7910/DVN/ZLKBJ5) or upon request.
